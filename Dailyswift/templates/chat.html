@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Chat with {{ other_user.username }}{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Chat with {{ other_user.username }}</h2>
+    <div class="card">
+        <div class="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                {% for message in messages %}
+                <div class="message {% if message.sender_id == session['user_id'] %}message-sent{% else %}message-received{% endif %}">
+                    {% if message.sender_id != session['user_id'] %}
+                    <div class="message-info">{{ other_user.username }} at {{ message.created_at.strftime('%H:%M') }}</div>
+                    {% endif %}
+                    <div class="message-content">{{ message.content }}</div>
+                    {% if message.sender_id == session['user_id'] %}
+                    <div class="message-info">You at {{ message.created_at.strftime('%H:%M') }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <form id="chat-form" class="chat-input" data-receiver-id="{{ other_user.id }}">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

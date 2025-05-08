@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Job Seeker Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Welcome, Job Seeker!</h2>
+    <div class="card">
+        <h3>Recent Job Listings</h3>
+        <div class="job-list">
+            {% for job in jobs %}
+            <div class="job-card">
+                <h4>{{ job.title }}</h4>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> {{ job.location }}</span>
+                    <span><i class="fas fa-money-bill-wave"></i> {{ job.pay }}</span>
+                    <span><i class="fas fa-clock"></i> {{ job.duration }}</span>
+                </div>
+                <p>{{ job.description[:150] }}...</p>
+                <div class="job-actions">
+                    <a href="{{ url_for('seeker_jobs') }}" class="btn btn-primary">Browse All Jobs</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

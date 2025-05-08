@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Swift - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Daily Swift">
+            </a>
+            <nav>
+                <ul>
+                    {% if 'user_id' in session %}
+                        <li><a href="{{ url_for(session['user_type'] + '_dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login', user_type='seeker') }}">Job Seeker Login</a></li>
+                        <li><a href="{{ url_for('login', user_type='poster') }}">Job Poster Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Daily Swift</h3>
+                <p>Connecting talent with opportunity.</p>
+            </div>
+            <div class="footer-section">
+                <h4>For Job Seekers</h4>
+                <ul>
+                    <li><a href="{{ url_for('seeker_jobs') }}">Browse Jobs</a></li>
+                    <li><a href="#">Create Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Employers</h4>
+                <ul>
+                    <li><a href="{{ url_for('post_job') }}">Post a Job</a></li>
+                    <li><a href="#">Find Talent</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Daily Swift. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        document.body.setAttribute('data-user-id', '{{ session.get("user_id") or "" }}');
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

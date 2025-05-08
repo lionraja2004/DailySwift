@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Jobs{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Available Jobs</h2>
+    <div class="job-list">
+        {% for job in jobs %}
+        <div class="job-card">
+            <h4>{{ job.title }}</h4>
+            <div class="job-meta">
+                <span><i class="fas fa-map-marker-alt"></i> {{ job.location }}</span>
+                <span><i class="fas fa-money-bill-wave"></i> {{ job.pay }}</span>
+                <span><i class="fas fa-clock"></i> {{ job.duration }}</span>
+            </div>
+            <p>{{ job.description }}</p>
+            <div class="job-actions">
+                <form action="{{ url_for('apply_job', job_id=job.id) }}" method="POST">
+                    <button type="submit" class="btn btn-primary apply-job" data-job-id="{{ job.id }}">Apply Now</button>
+                </form>
+                <a href="{{ url_for('chat', user_id=job.poster_id) }}" class="btn btn-outline">Message Poster</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

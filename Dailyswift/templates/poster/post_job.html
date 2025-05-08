@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Post a Job{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Post a New Job</h2>
+    <div class="card">
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Job Title</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Job Description</label>
+                <textarea id="description" name="description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="pay">Pay</label>
+                <input type="text" id="pay" name="pay" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration</label>
+                <input type="text" id="duration" name="duration" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements</label>
+                <textarea id="requirements" name="requirements" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Job</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

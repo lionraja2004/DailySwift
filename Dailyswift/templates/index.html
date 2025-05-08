@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Find and Post<br>Temporary & Contract Jobs</h1>
+            <p>Daily Swift connects job seekers with temporary and contract-based opportunities. Whether you're looking for a one-day gig or a seasonal position, we've got you covered.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('login', user_type='seeker') }}" class="btn btn-primary">Find Jobs</a>
+                <a href="{{ url_for('login', user_type='poster') }}" class="btn btn-secondary">Post Jobs</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='images/hero-illustration.png') }}" alt="Job Marketplace">
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="container">
+        <h2>How Daily Swift Works</h2>
+        <p class="subtitle">Connecting employers and workers quickly and efficiently</p>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Post a Job</h3>
+                <p>Employers can easily post temporary or contract jobs with all the necessary details.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Find & Apply</h3>
+                <p>Job seekers browse opportunities and quickly apply to positions that match their skills.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Connect & Work</h3>
+                <p>Chat directly through our platform and start working together right away.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

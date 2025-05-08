@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Job Poster Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Welcome, Job Poster!</h2>
+    <a href="{{ url_for('post_job') }}" class="btn btn-primary">Post New Job</a>
+    
+    <div class="card">
+        <h3>Your Job Postings</h3>
+        <div class="job-list">
+            {% for job in jobs %}
+            <div class="job-card">
+                <h4>{{ job.title }}</h4>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> {{ job.location }}</span>
+                    <span><i class="fas fa-money-bill-wave"></i> {{ job.pay }}</span>
+                    <span><i class="fas fa-clock"></i> {{ job.duration }}</span>
+                </div>
+                <p>{{ job.description[:150] }}...</p>
+                <div class="job-actions">
+                    <a href="{{ url_for('poster_applications', job_id=job.id) }}" class="btn btn-primary">
+                        View Applications ({{ job.applications|length }})
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <p>You haven't posted any jobs yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
